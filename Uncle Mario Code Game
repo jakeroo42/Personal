@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Apr 13 01:47:19 2020
+
+@author: jakerabinowitz
+"""
+
+#creates a list of matching numbers 
+
+def findCorrDigs(number, guess):    
+    for i in number:
+        if i in guess:
+            corrDig.append(i)
+    return corrDig
+
+#fama function
+def fama(corDigits, number):
+    for i in corDigits:
+        indexListOfNum.append(number.index(i))
+    return indexListOfNum
+               
+#pica function
+def pica(corIndexList, guess, number):
+    picaCount = 0
+    for i in corIndexList:
+        if guess[i] == number[i]:
+            picaCount = picaCount + 1
+            #print(i + 1, "matches") #pica
+    return picaCount
+        
+        
+#def build number so you know when to exit the loop 
+    
+#choose a 4 digit number 
+print("Please enter a number:")
+#enter a number and turn it into a list
+number = [int(i) for i in str(input())] 
+
+#probaly in while loop 
+gamePlaying = True
+
+count = 0
+#start of game while loop
+while gamePlaying: 
+    
+    #initialize correct digit array
+    corrDig = []
+
+    #initialize an index list of correctly guessed digits in the number
+    indexListOfNum = []
+    
+    #Guess a number 
+    print("Guess a " + str(len(number)) + " digit number: ")
+    guess = [int(i) for i in str(input())] 
+    
+    #returns a list of numbers in common
+    corDigits = findCorrDigs(number, guess)
+    
+    #
+    corIndexList = fama(corDigits, number)
+    
+    #function to tell you if your spot is correct 
+    picaCount = pica(corIndexList, guess, number)
+    
+    count = count + 1
+    if picaCount == len(number):
+        gamePlaying = False
+        print("You win in", count , "turns")
+    else:
+        
+        print(len(corDigits) - picaCount, "fama", picaCount, "pica")
+    
+#End while loop 
